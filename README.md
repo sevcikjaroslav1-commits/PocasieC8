@@ -21,7 +21,7 @@ Každá nová verzia sa nainštaluje ako aktualizácia cez starú (všetky build
 - Legenda s hodnotami v mm/h a vysvetlenie farieb (ⓘ)
 - Upozornenia: dážď (minútová predpoveď na 2 h), sneženie (cm), víchrica (nárazy), mráz – časová os 48 h
 - Notifikácie vopred (15 min – 3 h), dajú sa vypnúť po typoch
-- Hľadanie miest, poloha cez GPS, uložené miesta
+- Hľadanie miest **offline** (72 000 európskych miest priamo v appke), poloha cez GPS, uložené miesta
 - Hodinová predpoveď na 24 h a predpoveď na 7 dní, detaily (vietor, vlhkosť, UV, tlak, viditeľnosť, slnko)
 
 ## Vývoj
@@ -34,11 +34,21 @@ cd android && ./gradlew assembleDebug
 
 Celá appka je v `www/index.html`. Build APK robí GitHub Actions (`.github/workflows/android.yml`) pri každom pushi do `main`.
 
-## Dáta a licencie – pred Google Play treba vyriešiť
+## Dáta a licencie
 
-- **Open-Meteo** (predpoveď, hľadanie miest) – zadarmo len na nekomerčné použitie; pre komerčnú appku je potrebné ich predplatné.
-- **RainViewer** (radar) – bezplatné API len na osobné a vzdelávacie použitie, max. priblíženie radaru je obmedzené, predpoveď radaru do budúcnosti už nie je k dispozícii.
-- **CARTO / OpenStreetMap** (podkladová mapa) – vyžaduje uvedenie zdroja; pri vyššej návštevnosti platená licencia CARTO.
-- **BigDataCloud** (názov miesta z GPS) – bezplatné klientske API.
-- Upozornenia počíta appka z predpovede – nie sú to oficiálne výstrahy SHMÚ.
-- `android/keystore/pocasiec8-test.jks` je **len testovací kľúč** (heslo je v `app/build.gradle`). Na Google Play treba vlastný tajný release kľúč.
+| Čo | Zdroj | Licencia | Google Play |
+|---|---|---|---|
+| Predpoveď, upozornenia, vietor | [MET Norway](https://api.met.no/) Locationforecast 2.0 | CC BY 4.0 – zadarmo aj komerčne | ✅ |
+| Mapa | [OpenFreeMap](https://openfreemap.org) (OpenMapTiles, © OpenStreetMap) | zadarmo, bez limitov | ✅ |
+| Hľadanie miest | [GeoNames](https://www.geonames.org/) cities1000 (súbor `www/places.txt`) | CC BY 4.0 | ✅ |
+| Východ/západ slnka | výpočet v appke (algoritmus SunCalc) | – | ✅ |
+| **Radar** | [RainViewer](https://www.rainviewer.com/api.html) | **len osobné/vzdelávacie použitie** | ❌ treba vymeniť |
+
+**Pred vydaním na Google Play:** radar nahradiť európskym radarom EUMETNET OPERA (MeteoGate, CC BY 4.0)
+cez vlastný malý server, ktorý dáta prevedie na mapové dlaždice (napr. open-source LibreWXR).
+
+MET Norway vyžaduje, aby sa appka identifikovala – rieši to `appendUserAgent` v `capacitor.config.json`.
+Upozornenia počíta appka z predpovede – nie sú to oficiálne výstrahy SHMÚ.
+
+`android/keystore/pocasiec8-test.jks` je **len testovací kľúč** (heslo je v `app/build.gradle`).
+Na Google Play treba vlastný tajný release kľúč.
