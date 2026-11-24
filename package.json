@@ -1,0 +1,20 @@
+{
+  "name": "pocasiec8",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PocasieC8 – počasie s online radarom zrážok",
+  "scripts": {
+    "vendor": "node scripts/copy-vendor.js",
+    "sync": "npm run vendor && npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@capacitor/geolocation": "^8.2.5",
+    "@capacitor/local-notifications": "^8.3.1",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2"
+  }
+}

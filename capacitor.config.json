@@ -1,0 +1,18 @@
+{
+  "appId": "sk.vespal.pocasiec8",
+  "appName": "PocasieC8",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "iconColor": "#38BDF8"
+    },
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "DARK"
+    }
+  },
+  "backgroundColor": "#0B1220"
+}
